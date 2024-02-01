@@ -1,5 +1,6 @@
 package com.example.taskmasters.model;
 
+import com.example.taskmasters.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 
 public class User {
     @Id
@@ -25,4 +26,5 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    private Role role;
 }
