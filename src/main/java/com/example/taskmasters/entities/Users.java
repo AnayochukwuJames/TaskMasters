@@ -1,6 +1,5 @@
 package com.example.taskmasters.entities;
 
-
 import com.example.taskmasters.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
