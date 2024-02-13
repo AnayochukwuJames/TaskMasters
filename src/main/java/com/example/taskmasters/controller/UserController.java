@@ -1,8 +1,6 @@
 package com.example.taskmasters.controller;
 
-import com.example.taskmasters.dto.GoogleSignUpRequest;
-import com.example.taskmasters.dto.SignUpRequest;
-import com.example.taskmasters.dto.SignUpResponse;
+import com.example.taskmasters.dto.*;
 import com.example.taskmasters.entities.Users;
 import com.example.taskmasters.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +25,9 @@ public class UserController {
     @PostMapping("/google-sign-up")
     public Users signUpWithGoogle(@RequestBody GoogleSignUpRequest googleSignUpRequest) {
      return userService.signUpWithGoogle(googleSignUpRequest);
+    }
+    @PostMapping("refreshToken")
+    public ResponseEntity<JwtAuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
+        return ResponseEntity.ok(userService.refreshToken(refreshTokenRequest));
     }
 }
