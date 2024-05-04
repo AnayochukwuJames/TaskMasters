@@ -1,6 +1,5 @@
 package com.example.taskmasters.controller;
 
-import com.example.taskmasters.dto.*;
 import com.example.taskmasters.entities.Users;
 import com.example.taskmasters.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +17,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("sign-up")
-    public ResponseEntity<SignUpResponse> signUp(@RequestBody SignUpRequest signUpRequest){
-        return userService.signUp(signUpRequest);
+    public ResponseEntity<Users> signUp(@RequestBody Users user){
+        return userService.signUp(user);
     }
 
-    @PostMapping("/google-sign-up")
-    public Users signUpWithGoogle(@RequestBody GoogleSignUpRequest googleSignUpRequest) {
-     return userService.signUpWithGoogle(googleSignUpRequest);
-    }
-    @PostMapping("refreshToken")
-    public ResponseEntity<JwtAuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
-        return ResponseEntity.ok(userService.refreshToken(refreshTokenRequest));
-    }
+//    @PostMapping("/google-sign-up")
+//    public Users signUpWithGoogle(@RequestBody GoogleSignUpRequest googleSignUpRequest) {
+//     return userService.signUpWithGoogle(googleSignUpRequest);
+//    }
+
 }

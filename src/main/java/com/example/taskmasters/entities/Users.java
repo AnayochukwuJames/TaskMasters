@@ -25,6 +25,7 @@ public class Users implements UserDetails {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
+    private String middleName;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
     @Column(name = "username", nullable = false, unique = true)
@@ -35,10 +36,7 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
-    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -54,6 +52,10 @@ public class Users implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
     }
 
 }
