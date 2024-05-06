@@ -8,10 +8,9 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,10 +27,24 @@ public class UserController {
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) throws MessagingException {
         return userService.login(loginRequest);
     }
-
-//    @PostMapping("/google-sign-up")
-//    public Users signUpWithGoogle(@RequestBody GoogleSignUpRequest googleSignUpRequest) {
-//     return userService.signUpWithGoogle(googleSignUpRequest);
-//    }
-
+    @GetMapping("{id}")
+    public ResponseEntity<Users> getUserById(@PathVariable("id") Long id){
+        return userService.getUserById(id);
+    }
+    @GetMapping("all")
+    public ResponseEntity<List<Users>> getAllUsers(){
+        return userService.getAllUser();
+    }
+    @GetMapping("username")
+    public ResponseEntity<Users> getUserByUsername(@RequestParam String username){
+        return userService.getUserByUsername(username);
+    }
+    @GetMapping("phoneNumber")
+    public ResponseEntity<Users> getUserByPhoneNumber(@RequestParam String phoneNumber){
+        return userService.getUserByPhoneNumber(phoneNumber);
+    }
+    @PutMapping("update")
+    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody @Valid Users user){
+        return userService.updateUser(id, user);
+    }
 }

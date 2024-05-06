@@ -14,13 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
@@ -41,8 +43,8 @@ public class UserService {
             Users user = userRepository.findByUsername(loginRequest.getUsername());
             String token = jwtService.createToken(user);
             messageServices.loginNotification(user.getUsername(), "Dear, \n" + user.getFirstName()+
-                    "You have successful login into TaskMaster Services, A platform you can contact a professional" +
-                    " for your house hold. Please proced and other for the services you need" +
+                    "You have successful login into TaskMaster Services, A platform you can contact a professionals" +
+                    " for all your house hold works. Please proceed and place order for the services you may need" +
                     "Note that that you can pay to the service provider after your been satisfied with the service through this platform\n"
                   +  "In case you come across any problem kindly contact us with any of the following numbers: 07066929216, 08030"+
                     "Thank you for chosen Task Master Service Provider");
@@ -54,5 +56,29 @@ public class UserService {
                     .build(), HttpStatus.OK);
         }
         return null;
+    }
+    public ResponseEntity<Users> updateUser(Long id, Users user){
+        Users newUser = userRepository.findById(id).get();
+        newUser.setFirstName(newUser.getFirstName());
+        newUser.setLastName(newUser.getLastName());
+        newUser.setMiddleName(newUser.getMiddleName());
+        newUser.setPhoneNumber(newUser.getPhoneNumber());
+        return new ResponseEntity<>(userRepository.save(user), HttpStatus.ACCEPTED);
+
+    }
+    public ResponseEntity<Users> getUserById(Long id){
+        Users user = userRepository.findById(id).get();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    public ResponseEntity<List<Users>> getAllUser(){
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+
+    }
+    public ResponseEntity<Users> getUserByUsername(String username){
+        return new ResponseEntity<>(userRepository.findByUsername(username), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Users> getUserByPhoneNumber(String phoneNumber){
+        return new ResponseEntity<>(userRepository.findByPhoneNumber(phoneNumber), HttpStatus.OK);
     }
 }

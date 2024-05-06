@@ -31,12 +31,12 @@ public class TaskMasterConfig {
     public UserDetailsService userDetailsService(){
         return username -> userRepository.findByUsername(username);
     }
+
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        return authenticationProvider;
     }
-
 }
