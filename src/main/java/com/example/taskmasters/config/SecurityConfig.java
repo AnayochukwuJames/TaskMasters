@@ -2,6 +2,7 @@ package com.example.taskmasters.config;
 
 import com.example.taskmasters.Enum.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -21,11 +22,13 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    private SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                        "api/v1/user/sign-up", "api/v1/user/login"
-                                ,"api/v1/user/update")
+                        "http://localhost:8085/api/v1/user/sign_up",
+                                "http://localhost:8085/api/v1/user/login"
+                                ,"http://localhost:8085/api/v1/user/upddate")
                         .permitAll()
                         .requestMatchers("api/v1/user/**")
                         .hasAnyAuthority(Role.ADMIN.name())

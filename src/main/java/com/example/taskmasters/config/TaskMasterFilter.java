@@ -32,8 +32,9 @@ public class TaskMasterFilter extends OncePerRequestFilter {
         final String authorization = request.getHeader("Authorization");
         final String username;
         final String jwtToken;
-        if (authorization != null || !authorization.startsWith("bearer ")){
+        if (authorization == null || ! authorization.startsWith("bearer ")){
             filterChain.doFilter(request, response);
+            System.out.println("It is getting boring ");
             return;
         }
         jwtToken = authorization.substring(7);
