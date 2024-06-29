@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("sign-up")
-    public ResponseEntity<Users> signUp(@RequestBody Users user){
+    public ResponseEntity<Users> signUp(@RequestBody Users user) throws MessagingException {
         return userService.signUp(user);
     }
     @PostMapping("login")
