@@ -30,8 +30,9 @@ public class UserService {
 
     private final MessageServices messageServices;
 
-    public ResponseEntity<Users> signUp(Users user) {
+    public ResponseEntity<Users> signUp(Users user) throws MessagingException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        messageServices.registrationNotification(user.getUsername(), "Dear" + user.getFirstName());
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
