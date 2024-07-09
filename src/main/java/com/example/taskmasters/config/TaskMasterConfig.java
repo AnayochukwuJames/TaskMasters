@@ -1,6 +1,6 @@
 package com.example.taskmasters.config;
 
-import com.example.taskmasters.repository.UserRepository;
+import com.example.taskmasters.repository.AuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class TaskMasterConfig {
 
-    private final UserRepository userRepository;
+    private final AuthRepository authRepository;
 
 
     @Bean
@@ -29,7 +29,7 @@ public class TaskMasterConfig {
     }
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userRepository.findByUsername(username);
+        return username -> authRepository.findByUsername(username);
     }
 
     @Bean

@@ -3,6 +3,7 @@ package com.example.taskmasters.controller;
 import com.example.taskmasters.dto.LoginRequest;
 import com.example.taskmasters.dto.LoginResponse;
 import com.example.taskmasters.entities.Users;
+import com.example.taskmasters.service.AuthService;
 import com.example.taskmasters.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -19,14 +20,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("sign-up")
-    public ResponseEntity<Users> signUp(@RequestBody Users user) throws MessagingException {
-        return userService.signUp(user);
-    }
-    @PostMapping("login")
-    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) throws MessagingException {
-        return userService.login(loginRequest);
-    }
     @GetMapping("{id}")
     public ResponseEntity<Users> getUserById(@PathVariable("id") Long id){
         return userService.getUserById(id);
