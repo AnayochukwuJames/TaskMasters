@@ -10,8 +10,5 @@ public interface AuthRepository extends JpaRepository<Users, Long> {
 
     Users findByUsername(String username);
 
-
-//    Users findBy(String phoneNumber);
-
     Users findByPhoneNumber(String phoneNumber);
 }
