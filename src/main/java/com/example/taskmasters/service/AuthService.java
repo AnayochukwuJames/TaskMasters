@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -43,11 +41,11 @@ public class AuthService {
 
             Users user = authRepository.findByUsername(loginRequest.getUsername());
             String token = jwtService.createToken(user);
-            messageServices.loginNotification(user.getUsername(), "Dear, \n" + user.getFirstName()+
+            messageServices.loginNotification(user.getUsername(), "Dear, " + user.getFirstName()+
                     "You have successful login into TaskMaster Services, A platform you can contact a professionals" +
                     " for all your house hold works. Please proceed and place order for the services you may need" +
-                    "Note that that you can pay to the service provider after your been satisfied with the service through this platform\n"
-                  +  "In case you come across any problem kindly contact us with any of the following numbers: 07066929216, 08030"+
+                    "\nNote that you can pay to the service provider after your been satisfied with the service through this platform\n"
+                  +  "In case you come across any problem kindly contact us with any of the following numbers: 07066929216"+
                     "Thank you for chosen Task Master Service Provider");
 
 
